@@ -1,5 +1,5 @@
 let firstNum = '';
-let operator;
+let operator = '';
 let secondNum = '';
 
 const result = document.querySelector('#result');
@@ -15,7 +15,7 @@ numberButtons.forEach(btn => {
       secondNum += this.innerText;
     }
     
-
+    result.innerText = `${firstNum} ${operator} ${secondNum}`;
   });
 });
 
@@ -28,20 +28,27 @@ operatorButtons.forEach(btn => {
     } else {
       switch (operator) {
         case '+':
-          firstNum = firstNum + secondNum;
+          firstNum = (parseFloat(firstNum) + parseFloat(secondNum)).toString();
+          secondNum = '';
           break;
         case '-':
-          firstNum = firstNum - secondNum;
+          firstNum = (parseFloat(firstNum) - parseFloat(secondNum)).toString();
+          secondNum = '';
           break;
         case '*':
-          firstNum = (firstNum * secondNum).toFixed(5);
+          firstNum = (parseFloat(firstNum) * parseFloat(secondNum)).toFixed(5).toString();
+          secondNum = '';
           break;
         case '/':
-          firstNum = (firstNum / secondNum).toFixed(5);
+          firstNum = (parseFloat(firstNum) / parseFloat(secondNum)).toFixed(5).toString();
+          secondNum = '';
         default:
           break;
       }
     }
+  
+    operator = this.innerText;
+    result.innerText = `${firstNum} ${operator} ${secondNum}`;
   })
 })
 
@@ -49,26 +56,23 @@ equalButton.addEventListener('click', function() {
   if(operator && firstNum && secondNum) {
     switch (operator) {
       case '+':
-        firstNum = firstNum + secondNum;
-        operator = '';
-        secondNum = '';
+        firstNum = (parseFloat(firstNum) + parseFloat(secondNum)).toString();
         break;
       case '-':
-        firstNum = firstNum - secondNum;
-        operator = '';
-        secondNum = '';
+        firstNum = (parseFloat(firstNum) - parseFloat(secondNum)).toString();
         break;
       case '*':
-        firstNum = (firstNum * secondNum).toFixed(5);
-        operator = '';
-        secondNum = '';
+        firstNum = (parseFloat(firstNum) * parseFloat(secondNum)).toFixed(5).toString();
         break;
       case '/':
-        firstNum = (firstNum / secondNum).toFixed(5);
-        operator = '';
-        secondNum = '';
+        firstNum = (parseFloat(firstNum) / parseFloat(secondNum)).toFixed(5).toString();
       default:
         break;
     }
   }
+  
+  operator = '';
+  secondNum = '';
+
+  result.innerText = `${firstNum} ${operator} ${secondNum}`;
 })
